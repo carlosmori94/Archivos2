@@ -15,6 +15,24 @@ class Estacionamiento
 
 
 	}
-	public static function Leer(){}
+	public static function Leer()
+	{
+		$listadoDeAutos = array();
+		//con el comando $listadoDeAutos[] , accedo al primer elemento de mi array.
+		$archivo = fopen("AutosEStacionados.txt", "r");
+		while (!feof($archivo)) 
+		{
+			$renglon = fgets($archivo);
+			$auto = explode("=>", $renglon);//Divide mi patente $auto[0] y mi hora de entrada$auto[1];
+			echo "</BR> Patente".$auto[0]."Registro su entrada a las: ".$auto[1]."</BR>";
+			
+			$auto[0]=trim($auto[0]);
+			if($auto[0]!="")
+				$ListaDeAutosLeida[]=$auto;
+
+		}
+		fclose($archivo);
+		return $listadoDeAutos;
+	}
 }
 ?> 
