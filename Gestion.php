@@ -1,5 +1,6 @@
 <?php
-require_once "Clase estacionamiento/Estacionamiento.php";
+require_once "Clase estacionamiento/Estacionamiento.php";//Error , se detiene el programa
+//include tira warning pero no crashea 
 
 $patente = $_POST["Patente"];
 $accion = $_POST["Estacionar"];
@@ -8,13 +9,13 @@ if($accion == "Ingreso")
 	{
 		//EStacionamiento::Guardar($patente);
 		
-		$arrayDeAutos = EStacionamiento::Leer();
+		$arrayDeAutos = EStacionamiento::Leer();//Primer duda, porque esto me guarda un Array de arrays?
 		var_dump($arrayDeAutos);
 		echo "<br/>Ya sali de Leer, entro a mi foreach...<br/><br/><br/>";
 		echo "<br/> Mi array tiene: ".sizeof($arrayDeAutos)." Elementos <br/>";
-		
-		for ($i=0; $i < sizeof($arrayDeAutos) ; $i++) { 
-			echo "Mi auto numero ".($i+1).": Tiene la patente ".$arrayDeAutos[$i]."<br/>";
+		foreach ($arrayDeAutos as  $value) {
+			echo"<br/>Auto estacionado patente: ".$value[0]."<br/>";//patente
+					//
 		}
 		
 		

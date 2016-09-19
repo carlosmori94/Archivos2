@@ -30,20 +30,20 @@ class Estacionamiento
 			
 			$auto[0]=trim($auto[0]);//Elimina espacio en blanco al principio y al final de las cadenas
 			if($auto[0]!="")
-				$listadoDeAutos[]=$auto;
+				$listadoDeAutos[]=$auto;//Le paso el objeto entero
 
 
 
 		}
 		fclose($archivo);
 		return $listadoDeAutos;
+	}
 
-
-		public static function Sacar($patente)
+		public static function Sacar($patente)//Aca tengo que busacr la patente que me pasan, y crear un array donde no este esa patente.
 		{
 			$listado = Estacionamiento::Leer();
 			$listadoAdentro = array();
-			$estaElVehiculo )= false;
+			$estaElVehiculo = false;
 			//Ahora recorro el array
 			foreach ($listado as $auto) {
 				if ($auto[0] == $patente) 
@@ -52,62 +52,20 @@ class Estacionamiento
 					$inicio = $auto[1];
 					$ahora = date("y-m-d H:i:s");
 					//Calculo la diferencia
-					$diferencia = strtotime($ahora)- strtotime($inicio);
+					$diferencia = strtotime($ahora)- strtotime($inicio);//Esto es en segundos no?
 					$importe = $diferencia * 15;
 
-					$mensaje = "Tiempo transcurrido: ".$diferencia," segundos, costo $".$importe;
+					$mensaje = "Tiempo transcurrido: ".$diferencia." segundos, costo $".$importe;
 					echo "<br/>".$mensaje;
 
 					$archivo = fopen("AutosEstacionados.txt", "a");
 					$dato = $patente."=>".$importe."\n" ;
-					fwrite($archivo, $dato);
-					fclose($archivo)	
+					fwrite($archivo, $dato);//Que hace esta linea?
+					fclose($archivo);
 
 				}
-			}
+			
 		}
-		public static function Sacar($patente)
-	{
-
-		$listado=estacionamiento::Leer();
-		$ListadoAdentro=array();
-		$estaElVehiculo=false;
-		foreach ($listado as $auto) 
-		{
-			if($auto[0]==$patente)
-			{
-				$estaElVehiculo=true;
-				$inicio=$auto[1];	
-				$ahora=date("Y-m-d H:i:s"); 			 
- 				$diferencia = strtotime($ahora)- strtotime($inicio) ;
- 				//http://www.w3schools.com/php/func_date_strtotime.asp
- 				$importe=$diferencia*15;
-				$mensaje= "tiempo transcurrido:".$diferencia." segundos <br> costo $importe ";
-				
-				$archivo=fopen("archivos/facturacion.txt", "a"); 		  
-		 		$dato=$patente ."=> $".$importe."\n" ;
-		 		fwrite($archivo, $dato);
-		 		fclose($archivo);
-
-
-			}
-			else
-			{
-				$ListadoAdentro[]=$auto;				
-			}
-		}// fin del foreach
-
-		if(!$estaElVehiculo)
-		{
-			$mensaje= "no esta esa patente!!!";
-		}
-
-
-		estacionamiento::GuardarListado($ListadoAdentro);
-
-
-		echo $mensaje;
-	}
 		
 
 
